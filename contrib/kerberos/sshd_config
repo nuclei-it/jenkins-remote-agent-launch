@@ -1,0 +1,11 @@
+# this example SSH server config is intended to be used on the Jenkins agent nodes
+# assume SSSD is set up
+
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+GSSAPIStrictAcceptorCheck yes
+GSSAPIKeyExchange yes
+GSSAPIEnablek5users no
+
+AuthorizedKeysCommand /usr/bin/sss_ssh_authorizedkeys
+AuthorizedKeysCommandUser nobody

@@ -1,0 +1,37 @@
+# this example SSH client config is intended to be used on the Jenkins host
+# assume SSSD is set up
+
+CanonicalizeHostname always
+CanonicalDomains corp.contoso.com
+CanonicalizeMaxDots 0
+CanonicalizeFallbackLocal no
+
+ControlMaster no
+
+TCPKeepAlive yes
+ServerAliveInterval 60
+ServerAliveInterval 3
+ConnectionAttempts 3
+ConnectTimeout 3
+ExitOnForwardFailure yes
+
+SendEnv LANG LC_*
+
+HashKnownHosts yes
+CheckHostIP yes
+VerifyHostKeyDNS yes
+VisualHostKey yes
+
+StrictHostKeyChecking accept-new
+# for very old versions of OpenSSH client; insecure
+# StrictHostKeyChecking no
+
+ProxyCommand /usr/bin/sss_ssh_knownhostsproxy -p %p %h
+GlobalKnownHostsFile /var/lib/sss/pubconf/known_hosts
+
+# Use Kerberos
+Match canonical host="*.corp.contoso.com"
+    User jenkins
+    PreferredAuthentications gssapi-with-mic
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials no

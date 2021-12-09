@@ -1,0 +1,16 @@
+# You should change JENKINS_USER_KEYRING to match the actual configuration
+
+[Unit]
+Description=Keep a kerberos ticket for jenkins user
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+Environment=JENKINS_USER_KEYRING=KEYRING:persistent:410000001
+ExecStart=/usr/bin/k5start -U -f /etc/krb5-jenkins.keytab -K 10 -v -k ${JENKINS_USER_KEYRING} -P
+ExecStopPost=/usr/bin/kdestroy
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
