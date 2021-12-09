@@ -36,6 +36,7 @@ if ! ssh_helper "${NODE_NAME}" -- "command -v java"; then
 fi
 
 # download the agent
+# Note: if your Jenkins installation has an untrusted SSL CA (you really shouldn't!), you may need to add --no-check-certificate to the curl command
 >&2 echo "[*] Provisioning agent..."
 ssh_helper "${NODE_NAME}" -- "curl -L -o ${AGENTJAR_PATH} "${AGENTJAR_URL}""
 
