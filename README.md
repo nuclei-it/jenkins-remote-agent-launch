@@ -12,7 +12,7 @@ This script uses the native `ssh` program rather than Jenkins' bundled SSH clien
 
 # Why?
 
-Jenkins has [a "Launch agents via SSH" plugin](https://github.com/jenkinsci/ssh-slaves-plugin), but it's not very flexible. You can only use fixed authentication material (username/password or username/private key) and you can't modify any other SSH config which might be required if you are working with some *enterprise software (TM)*.This script is a simple wrapper around `ssh` which makes it flexible. We can use more advanced authentication scheme (e.g. Kerberos over GSSAPI) rather than relying on what the Jenkins plugin provided.
+Jenkins has [a "Launch agents via SSH" plugin](https://github.com/jenkinsci/ssh-slaves-plugin), but it's not very flexible. You can only use fixed authentication material (username/password or username/private key) and you can't modify any other SSH config which might be required if you are working with some *enterprise software (TM)*.This script is a simple wrapper around `ssh` which makes it flexible. We can use more advanced authentication scheme (e.g. Kerberos over GSSAPI, or short-lived signed SSH key with a SSH CA) rather than relying on what the Jenkins plugin provided.
 
 Another advantage is that you can directly modify the connection process to add some custom provision commands, do some extended logging or execute optional environment checks. The node info is exposed via environment variables, so you are free to use them everywhere in the script.
 
